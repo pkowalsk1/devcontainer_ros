@@ -1,0 +1,141 @@
+{
+    "dockerFile": "Dockerfile",
+    "build": {
+        "args": {}
+    },
+    "workspaceFolder": "/home/husarion/ros2_ws",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/husarion/ros2_ws/src,type=bind",
+    "runArgs": [
+        "--network=host",
+        "--cap-add=SYS_PTRACE",
+        "--security-opt=seccomp:unconfined",
+        "--security-opt=apparmor:unconfined",
+        "--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+        "--volume=/mnt/wslg:/mnt/wslg",
+        "--volume=${localWorkspaceFolder}/.devcontainer/post_create_script.sh:/post_create_script.sh",
+        "--ipc=host",
+        "--runtime=nvidia"
+    ],
+    "containerEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}", // Needed for GUI try ":0" for windows
+        "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
+        "XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+        "PULSE_SERVER": "${localEnv:PULSE_SERVER}",
+        "LIBGL_ALWAYS_SOFTWARE": "1", // Needed for software rendering of opengl
+        "QT_X11_NO_MITSHM": "1",
+        "NVIDIA_VISIBLE_DEVICES": "all",
+        "NVIDIA_DRIVER_CAPABILITIES": "compute,utility,display"
+    },
+    // Set *default* container specific settings.json values on container create.
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "althack.ament-task-provider",
+                "betwo.b2-catkin-tools",
+                "DotJoshJohnson.xml",
+                "gruntfuggly.todo-tree",
+                "ms-azuretools.vscode-docker",
+                "ms-iot.vscode-ros",
+                "ms-python.python",
+                "ms-vscode.cpptools",
+                "redhat.vscode-yaml",
+                "smilerobotics.urdf",
+                "streetsidesoftware.code-spell-checker",
+                "twxs.cmake",
+                "yzhang.markdown-all-in-one",
+                "zachflower.uncrustify"
+            ],
+            "settings": {
+                "editor.tabSize": 4,
+                "editor.rulers": [
+                    100
+                ],
+                "files.associations": {
+                    "*.repos": "yaml",
+                    "*.world": "xml",
+                    "*.xacro": "xml"
+                },
+                "ros.distro": "humble",
+                "ros.rosSetupScript": "/opt/ros/humble/install/setup.bash",
+                "ros.isolateEnvironment": false,
+                "python.analysis.extraPaths": [
+                    "/opt/ros/humble/lib/python3.10/site-packages/"
+                ],
+                "python.autoComplete.extraPaths": [
+                    "/opt/ros/humble/lib/python3.10/site-packages/"
+                ],
+                "python.envFile": "${workspaceFolder}/.vscode/.env",
+                "python.defaultInterpreterPath": "/usr/bin/python3",
+                "python.formatting.provider": "black",
+                "python.formatting.blackPath": "/usr/local/bin/black",
+                "editor.insertSpaces": true,
+                "editor.detectIndentation": false,
+                "editor.formatOnSave": false,
+                "[python]": {
+                    "editor.formatOnSave": true
+                },
+                "python.testing.pytestPath": "/usr/local/bin/pytest",
+                "python.testing.pytestEnabled": true,
+                "python.formatting.autopep8Path": "/usr/bin/autopep8",
+                "python.formatting.autopep8Args": [
+                    "--max-line-length=100"
+                ],
+                "python.formatting.blackArgs": [
+					"--line-length", "100",
+					"--skip-string-normalization"
+				],
+                "C_Cpp.default.intelliSenseMode": "linux-gcc-x86",
+                "C_Cpp.formatting": "disabled",
+                "uncrustify.configPath.linux": "/opt/ros/humble/lib/python3.10/site-packages/ament_uncrustify/configuration/ament_code_style.cfg",
+                "[cpp]": {
+                    "editor.defaultFormatter": "zachflower.uncrustify"
+                },
+                "search.exclude": {
+                    "**/node_modules": true,
+                    "**/bower_components": true,
+                    "**/*.code-search": true,
+                    "**/build": true,
+                    "**/install": true,
+                    "**/log": true
+                },
+                "cSpell.words": [
+                    "RTPS",
+                    "athackst",
+                    "autopep",
+                    "cmake",
+                    "cppcheck",
+                    "cpplint",
+                    "DCMAKE",
+                    "deque",
+                    "devcontainer",
+                    "ints",
+                    "noqa",
+                    "pytest",
+                    "rclcpp",
+                    "rclpy",
+                    "repos",
+                    "rosdep",
+                    "rosdistro",
+                    "rosidl",
+                    "RTPS",
+                    "uncrustify",
+                    "Wextra",
+                    "Wpedantic",
+                    "xmllint"
+                ],
+                "cSpell.allowCompoundWords": true,
+                "cSpell.ignorePaths": [
+                    "**/package-lock.json",
+                    "**/node_modules/**",
+                    "**/vscode-extension/**",
+                    "**/.git/objects/**",
+                    ".vscode",
+                    ".vscode-insiders",
+                    ".devcontainer/devcontainer.json"
+                ]
+            }
+        }
+    },
+    "postCreateCommand": "/post_create_script.sh"
+    // "sudo apt update && sudo rosdep update && sudo rosdep install --from-paths src --ignore-src -y --rosdistro humble --skip-keys ros_components_description --skip-keys rosbot_xl_description"
+}
